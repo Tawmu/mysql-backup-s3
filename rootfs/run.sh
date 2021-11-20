@@ -1,5 +1,4 @@
 #!/bin/sh
-
 set -eo pipefail
 
 if [ "${S3_S3V4}" = "yes" ]; then

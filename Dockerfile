@@ -1,8 +1,12 @@
 FROM alpine:latest
-LABEL maintainer="Johannes Schickling <schickling.j@gmail.com>"
+LABEL maintainer="@Tawmu"
 
-ADD install.sh install.sh
-RUN sh install.sh && rm install.sh
+COPY /rootfs/ /
+
+RUN apk add --no-cache openssl coreutils mysql-client python3 py3-pip && \
+  pip3 install --no-cache-dir awscli && \
+  chmod 755 /backup.sh && \
+  chmod 755 /run.sh
 
 ENV MYSQLDUMP_OPTIONS --quote-names --quick --add-drop-table --add-locks --allow-keywords --disable-keys --extended-insert --single-transaction --create-options --comments --net_buffer_length=16384
 ENV MYSQLDUMP_DATABASE --all-databases
@@ -22,8 +26,5 @@ ENV MULTI_FILES no
 ENV SCHEDULE **None**
 ENV DELETE_OLDER_THAN **None**
 ENV ENCRYPTION_PASSWORD **None**
-
-ADD run.sh run.sh
-ADD backup.sh backup.sh
 
 CMD ["sh", "run.sh"]
