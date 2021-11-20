@@ -9,6 +9,9 @@ apk update
 # install openssl
 apk add openssl
 
+# install coreutils for date
+apk add coreutils
+
 # install mysqldump
 apk add mysql-client
 
